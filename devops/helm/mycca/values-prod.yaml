@@ -1,0 +1,40 @@
+replicaCount: 3
+
+image:
+  repository: ghcr.io/YOUR_REPO/mycca-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+frontendImage:
+  repository: ghcr.io/YOUR_REPO/mycca-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+frontendService:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  tls:
+    enabled: true
+    secretName: mycca-tls
+    issuer: letsencrypt-prod
+  hosts:
+    api: api.mycca.com
+    frontend: www.mycca.com
+    grafana: grafana.mycca.com
+    keycloak: keycloak.mycca.com
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi

@@ -1,0 +1,42 @@
+apiVersion: 1
+contactPoints:
+  - orgId: 1
+    name: Email-Admins
+    receivers:
+      - uid: email_admins
+        type: email
+        settings:
+          addresses: "admin1@example.com,admin2@example.com"
+
+  - orgId: 1
+    name: Slack-Channel
+    receivers:
+      - uid: slack_channel
+        type: slack
+        settings:
+          url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+          recipient: "#alerts"
+
+  - orgId: 1
+    name: Teams-Channel
+    receivers:
+      - uid: teams_channel
+        type: webhook
+        settings:
+          url: "https://outlook.office.com/webhook/your-teams-webhook-url"
+
+policies:
+  - orgId: 1
+    receiver: Email-Admins
+    group_by: ['alertname']
+    routes:
+      - match:
+          alertname: "Sync Failures Alert"
+        receiver: Email-Admins
+      - match:
+          alertname: "Login Failure Spike Alert"
+        receiver: Slack-Channel
+      - match:
+          alertname: "Stale Sync Alert"
+        receiver: Teams-Channel
+    repeat_interval: 1h

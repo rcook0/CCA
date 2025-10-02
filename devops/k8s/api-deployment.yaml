@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mycca-api
+  namespace: mycca
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mycca-api
+  template:
+    metadata:
+      labels:
+        app: mycca-api
+    spec:
+      containers:
+      - name: api
+        image: ghcr.io/YOUR_REPO/mycca-api:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - secretRef:
+            name: mycca-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mycca-api
+  namespace: mycca
+spec:
+  type: ClusterIP
+  selector:
+    app: mycca-api
+  ports:
+    - port: 5000
+      targetPort: 5000

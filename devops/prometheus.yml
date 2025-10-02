@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'mycca-api'
+    static_configs:
+      - targets: ['api:5000']
+
+  - job_name: 'keycloak'
+    static_configs:
+      - targets: ['keycloak:9990']
