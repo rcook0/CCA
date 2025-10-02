@@ -32,3 +32,17 @@ ingress:
     keycloak: keycloak.mycca.local
 
 resources: {}
+
+
+secrets:
+  # Use External Secrets Operator (true) or fallback to Kubernetes Secret (false)
+  useExternal: true
+  name: mycca-secrets
+
+  # Fallback secret data (only used if useExternal=false). Use placeholders.
+  fallback:
+    KEYCLOAK_CLIENT_SECRET: "changeme"
+    SMTP_USERNAME: "changeme"
+    SMTP_PASSWORD: "changeme"
+    SLACK_WEBHOOK: "https://hooks.slack.com/services/XXX/YYY/ZZZ"
+    TEAMS_WEBHOOK: "https://outlook.office.com/webhook/your-teams-webhook-url"

@@ -1,0 +1,20 @@
+repositories: []
+
+environments:
+  dev:
+    values:
+      - ./helm/mycca/values-dev.yaml
+  staging:
+    values:
+      - ./helm/mycca/values-staging.yaml
+  prod:
+    values:
+      - ./helm/mycca/values-prod.yaml
+
+releases:
+  - name: mycca
+    namespace: mycca
+    chart: ./helm/mycca
+    values:
+      - ./helm/mycca/values.yaml
+    installed: true
