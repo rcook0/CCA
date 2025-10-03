@@ -9,3 +9,6 @@ scrape_configs:
   - job_name: 'keycloak'
     static_configs:
       - targets: ['keycloak:9990']
+
+rule_files:
+  - /etc/prometheus/slo-rules.yml
