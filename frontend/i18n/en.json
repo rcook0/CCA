@@ -1,0 +1,14 @@
+{
+  "role.admin": "Admin",
+  "role.advisor": "Counselor",
+  "role.participant": "Student",
+  "nav.admin": "Admin Dashboard",
+  "nav.advisor": "Advisor Dashboard",
+  "nav.participant": "Student Dashboard",
+  "org.select": "Active Organization",
+  "sync.status": "User Sync Status",
+  "sync.lastRun": "Last Run",
+  "sync.usersSynced": "Users Synced",
+  "sync.success": "Last sync successful",
+  "sync.error": "Error"
+}
