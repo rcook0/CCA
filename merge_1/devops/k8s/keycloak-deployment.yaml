@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: mycca
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:24.0
+        args: ["start-dev", "--metrics-enabled"]
+        ports:
+        - containerPort: 8080
+        - containerPort: 9990
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  namespace: mycca
+spec:
+  type: ClusterIP
+  selector:
+    app: keycloak
+  ports:
+    - port: 8080
+      targetPort: 8080
+    - port: 9990
+      targetPort: 9990

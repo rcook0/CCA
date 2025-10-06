@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mycca-frontend
+  namespace: mycca
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mycca-frontend
+  template:
+    metadata:
+      labels:
+        app: mycca-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: ghcr.io/YOUR_REPO/mycca-frontend:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mycca-frontend
+  namespace: mycca
+spec:
+  type: LoadBalancer
+  selector:
+    app: mycca-frontend
+  ports:
+    - port: 80
+      targetPort: 3000

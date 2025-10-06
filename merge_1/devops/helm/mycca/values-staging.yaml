@@ -1,0 +1,34 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/YOUR_REPO/mycca-api
+  tag: staging
+  pullPolicy: IfNotPresent
+
+frontendImage:
+  repository: ghcr.io/YOUR_REPO/mycca-frontend
+  tag: staging
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+frontendService:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  tls:
+    enabled: true
+    secretName: mycca-staging-tls
+    issuer: letsencrypt-staging
+  hosts:
+    api: api.staging.mycca.com
+    frontend: app.staging.mycca.com
+    grafana: grafana.staging.mycca.com
+    keycloak: sso.staging.mycca.com
+
+resources: {}

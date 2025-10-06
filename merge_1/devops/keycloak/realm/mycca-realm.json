@@ -1,0 +1,67 @@
+{
+  "realm": "mycca",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "admin"
+      },
+      {
+        "name": "advisor"
+      },
+      {
+        "name": "participant"
+      },
+      {
+        "name": "student",
+        "composite": true,
+        "composites": {
+          "realm": [
+            "participant"
+          ]
+        }
+      },
+      {
+        "name": "counselor",
+        "composite": true,
+        "composites": {
+          "realm": [
+            "advisor"
+          ]
+        }
+      }
+    ]
+  },
+  "groups": [
+    {
+      "name": "ORG_DEFAULT",
+      "attributes": {
+        "org_id": [
+          "00000000-0000-0000-0000-000000000001"
+        ]
+      }
+    }
+  ],
+  "users": [],
+  "clients": [],
+  "smtpServer": {},
+  "attributes": {},
+  "identityProviders": [],
+  "protocolMappers": [
+    {
+      "name": "org_id",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-group-membership-mapper",
+      "consentRequired": false,
+      "config": {
+        "full.path": "false",
+        "claim.name": "org_id",
+        "jsonType.label": "String",
+        "aggregate.attrs": "true",
+        "userinfo.token.claim": "true",
+        "id.token.claim": "true",
+        "access.token.claim": "true"
+      }
+    }
+  ]
+}
